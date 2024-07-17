@@ -1,0 +1,61 @@
+{
+  "name": "nextjs-edgee",
+  "version": "1.0.0",
+  "description": "The Edgee SDK for Next.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build-lib": "tsup && sed -i '1s/^/\"use client\";/' dist/index.js",
+    "lint": "eslint --fix --cache src/",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edgee-cloud/nextjs-edgee.git"
+  },
+  "keywords": [
+    "Next",
+    "Next Edgee",
+    "Next.js",
+    "Next.js 14",
+    "Next.js 13",
+    "React",
+    "Edgee SDK",
+    "Edgee"
+  ],
+  "author": "Sacha Morard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/edgee-cloud/nextjs-edgee/issues"
+  },
+  "homepage": "https://github.com/edgee-cloud/nextjs-edgee#readme",
+  "files": [
+    "dist/**/*.js*",
+    "dist/**/*.mjs*",
+    "dist/**/*.d*"
+  ],
+  "devDependencies": {
+    "@types/node": "^18.14.6",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
+    "eslint": "^8.35.0",
+    "next": "^13.2.3",
+    "prettier": "^2.8.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsup": "^6.6.3",
+    "typescript": "^4.9.5"
+  },
+  "peerDependencies": {
+    "next": ">= 6.0.0",
+    "react": ">= 16.0.0",
+    "react-dom": ">= 16.0.0"
+  },
+  "packageManager": "yarn@3.2.4",
+  "dependencies": {
+    "prop-types": "^15.8.1"
+  }
+}
