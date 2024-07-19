@@ -1,7 +1,7 @@
 {
   "name": "nextjs-edgee",
   "version": "1.0.0",
-  "description": "The Edgee SDK for Next.js",
+  "description": "The Edgee SDK for React applications",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

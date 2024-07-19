@@ -1,9 +1,11 @@
-# Next Js Edgee Component
+# nextjs-edgee Component
 
-- The Edgee SDK for Next.js
+`NextEdgee` is a React component that injects the Edgee SDK script into the application.
+It also sets up listeners to track page navigations via `history.pushState` and `history.replaceState`
+to automatically call the `edgee.page` method, ensuring page views are tracked during SPA navigations.
 
-[![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/nextjs-toploader)
-[![NPM Downloads](https://img.shields.io/npm/dm/nextjs-toploader?&style=flat-square)](https://www.npmjs.com/package/nextjs-toploader)
+[![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/nextjs-edgee)
+[![NPM Downloads](https://img.shields.io/npm/dm/nextjs-toploader?&style=flat-square)](https://www.npmjs.com/package/nextjs-edgee)
 
 ## Install
 
@@ -38,7 +40,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <NextEdgee />
+        <NextEdgee src={"https://yourdomain.com/_edgee/sdk.js"} />
         {children}
       </body>
     </html>
@@ -56,7 +58,7 @@ import NextEdgee from 'nextjs-edgee';
 export default function MyApp({ Component, pageProps }) {
   return (
     <>
-      <NextEdgee />
+      <NextEdgee src="https://yourdomain.com/_edgee/sdk.js" />
       <Component {...pageProps} />;
     </>
   );
@@ -73,7 +75,7 @@ const App = () => {
   return (
     <div>
     <Router>
-      <NextEdgee />
+      <NextEdgee src="https://yourdomain.com/_edgee/sdk.js" />
     <Routes>
     {/* Your Routes Here */}
     </Routes>

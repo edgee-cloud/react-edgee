@@ -51,50 +51,59 @@ export type NextEdgeeProps = {
 };
 
 
+/**
+ * `NextEdgee` is a React component that injects the Edgee SDK script into the application.
+ * It also sets up listeners to track page navigations via `history.pushState` and `history.replaceState`
+ * to automatically call the `edgee.page` method, ensuring page views are tracked during SPA navigations.
+ *
+ * @param {NextEdgeeProps} props - The component props.
+ * @param {string} props.src - The source URL of the Edgee SDK script.
+ * @param {boolean} [props.dataInline=true] - Determines if the script should be inlined.
+ * @returns {JSX.Element} The script element to be injected into the application.
+ */
 const NextEdgee = ({ src, dataInline }: NextEdgeeProps): JSX.Element => {
 
+  // Default `dataInline` to true if not provided
   dataInline = dataInline ?? true;
 
-  /**
-   * Edgee SDK script
-   */
+  // Create the script element with the provided `src` and `dataInline` values
   const script = (
     <script id={'__EDGEE_SDK__'} async data-inline={dataInline} src={src}></script>
   );
 
-
+  // Use effect to setup and cleanup the history pushState and replaceState listeners
   React.useEffect((): ReturnType<React.EffectCallback> => {
-    /**
-     * Handle history pushState changes and call edgee.page method
-     * @param {History}
-     * @returns {void}
-     */
+    // Enhance the history.pushState method to track page navigations
     ((history: History): void => {
       const pushState = history.pushState;
       history.pushState = (...args) => {
+        // Call the original pushState method
+        const result = pushState.apply(history, args);
+        // Track the page view after a short delay to ensure the page has changed
         setTimeout(() => {
           window.edgee.page();
         }, 200);
-        return pushState.apply(history, args);
+        return result;
       };
     })((window as Window).history);
 
-    /**
-     * Handle history replaceState changes and call edgee.page method
-     * @param {History}
-     * @returns {void}
-     */
+    // Enhance the history.replaceState method similarly to track page navigations
     ((history: History): void => {
       const replaceState = history.replaceState;
       history.replaceState = (...args) => {
+        // Call the original replaceState method
+        const result = replaceState.apply(history, args);
+        // Track the page view after a short delay
         setTimeout(() => {
           window.edgee.page();
         }, 200);
-        return replaceState.apply(history, args);
+        return result;
       };
     })((window as Window).history);
 
+    // Cleanup function to restore the original pushState and replaceState methods
     return (): void => {
+      // No cleanup actions are defined here, but this is where you would restore the original methods if needed
     };
   }, []);
 
