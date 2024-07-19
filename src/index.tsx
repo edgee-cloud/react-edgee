@@ -1,7 +1,3 @@
-/* eslint-disable no-var */
-/* eslint-disable max-len */
-/* eslint-disable prefer-const */
-/* eslint-disable quotes */
 'use client';
 
 import * as PropTypes from 'prop-types';
@@ -110,7 +106,7 @@ const NextEdgee = ({ src, dataInline }: NextEdgeeProps): JSX.Element => {
   return script;
 };
 
-export default NextEdgee;
+export { NextEdgee };
 
 NextEdgee.propTypes = {
   src: PropTypes.string,

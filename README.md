@@ -5,7 +5,7 @@ It also sets up listeners to track page navigations via `history.pushState` and 
 to automatically call the `edgee.page` method, ensuring page views are tracked during SPA navigations.
 
 [![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/nextjs-edgee)
-[![NPM Downloads](https://img.shields.io/npm/dm/nextjs-toploader?&style=flat-square)](https://www.npmjs.com/package/nextjs-edgee)
+[![NPM Downloads](https://img.shields.io/npm/dm/nextjs-edgee?&style=flat-square)](https://www.npmjs.com/package/nextjs-edgee)
 
 ## Install
 
