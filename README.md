@@ -84,14 +84,3 @@ const App = () => {
 
 export default App;
 ```
-
-### Default Configuration
-
-If no props are passed to `<NextEdgee />`, below is the default configuration applied.
-
-```jsx
-<NextEdgee color="#2299DD" />
-```
-
-- `color`: to change the default color of TopLoader.
-

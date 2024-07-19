@@ -52,16 +52,8 @@ psd
 thumb
 sketch
 
-# yarn v2
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.yarn/install-state.gz
-.pnp.*
-
 # Optional eslint cache
 .eslintcache
-
 
 # Output of 'npm pack'
 *.tgz
