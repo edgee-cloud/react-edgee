@@ -1,6 +1,6 @@
 # nextjs-edgee Component
 
-`NextEdgee` is a React component that injects the Edgee SDK script into the application.
+`EdgeeSdk` is a React component that injects the Edgee SDK script into the application.
 It also sets up listeners to track page navigations via `history.pushState` and `history.replaceState`
 to automatically call the `edgee.page` method, ensuring page views are tracked during SPA navigations.
 
@@ -26,22 +26,22 @@ yarn add nextjs-edgee
 import using:
 
 ```js
-import NextEdgee from 'nextjs-edgee';
+import EdgeeSdk from 'nextjs-edgee';
 ```
 
 ### Usage with `app/layout.js` for `app` folder structure
 
-For rendering add `<NextEdgee />` to your `return()` inside the `<body></body>` of `RootLayout()`:
+For rendering add `<EdgeeSdk />` to your `return()` inside the `<body></body>` of `RootLayout()`:
 
 ```js
-import NextEdgee from 'nextjs-edgee';
+import EdgeeSdk from "nextjs-edgee";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <NextEdgee src={"https://yourdomain.com/_edgee/sdk.js"} />
         {children}
+        <EdgeeSdk src={"https://yourdomain.com/_edgee/sdk.js"} />
       </body>
     </html>
   );
@@ -50,16 +50,16 @@ export default function RootLayout({ children }) {
 
 ### Usage with `pages/_app.js` for `pages` folder structure
 
-For rendering add `<NextEdgee />` to your `return()` in `MyApp()`:
+For rendering add `<EdgeeSdk />` to your `return()` in `MyApp()`:
 
 ```js
-import NextEdgee from 'nextjs-edgee';
+import EdgeeSdk from 'nextjs-edgee';
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <>
-      <NextEdgee src="https://yourdomain.com/_edgee/sdk.js" />
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
+      <EdgeeSdk src="https://yourdomain.com/_edgee/sdk.js" />
     </>
   );
 }
@@ -67,15 +67,15 @@ export default function MyApp({ Component, pageProps }) {
 
 ### Usage with React, Vite React or any other React Based Framework
 
-For rendering add `<NextEdgee />` to your `return()` inside the <Router><Router/> component in `App()` in your App.js:
+For rendering add `<EdgeeSdk />` to your `return()` inside the <Router><Router/> component in `App()` in your App.js:
 
 ```js
-import NextEdgee from 'nextjsedgee';
+import EdgeeSdk from 'nextjsedgee';
 const App = () => {
   return (
     <div>
     <Router>
-      <NextEdgee src="https://yourdomain.com/_edgee/sdk.js" />
+      <EdgeeSdk src="https://yourdomain.com/_edgee/sdk.js" />
     <Routes>
     {/* Your Routes Here */}
     </Routes>
@@ -86,3 +86,61 @@ const App = () => {
 
 export default App;
 ```
+
+## Edgee Context Payload Usage
+
+import using:
+
+```js
+import { EdgeeSdk, EdgeeContextPayload, EdgeeContextObject } from "nextjs-edgee";
+```
+
+### Usage with `app/layout.js` for `app` folder structure
+
+```js
+import { EdgeeSdk, EdgeeContextPayload, EdgeeContextObject } from "nextjs-edgee";
+
+export default function RootLayout({ children }) {
+  const edgeeContextPayload: EdgeeContextObject = {
+    page: {
+      name: "With Edgee",
+      category: "demo",
+      title: "With Edgee",
+      url: "https://mysite.com/my/path",
+      path: "/my/path",
+      search: "?ok",
+      keywords: ["demo", "edgee"],
+      properties: {
+        section: "edge computing",
+        order: 6
+      }
+    },
+    identify: {
+      userId: "12345",
+      anonymousId: "12345",
+      properties: {
+        email: "me@example.com",
+        name: "John Doe",
+        age: 32
+      }
+    },
+    destinations: {
+      all: true,
+      google_analytics: true,
+      amplitude: true,
+      facebook_capi: true
+    }
+  };
+
+  return (
+    <html lang="en">
+      <body>
+        {children}
+        <EdgeeSdk src={"https://yourdomain.com/_edgee/sdk.js"} />
+      </body>
+    </html>
+  );
+}
+```
+
+To know more about the Edgee SDK, visit the [Edgee SDK documentation](https://docs.edgee.cloud/getting-started/js-sdk).

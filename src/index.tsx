@@ -39,25 +39,25 @@ declare global {
 }
 
 /**
- * Props for the NextEdgee component.
+ * Props for the EdgeeSdk component.
  */
-export type NextEdgeeProps = {
+export type EdgeeSdkProps = {
   src: string; // The source URL of the Edgee SDK script.
   dataInline?: boolean; // Determines if the script should be inlined. Defaults to true.
 };
 
 
 /**
- * `NextEdgee` is a React component that injects the Edgee SDK script into the application.
+ * `EdgeeSdk` is a React component that injects the Edgee SDK script into the application.
  * It also sets up listeners to track page navigations via `history.pushState` and `history.replaceState`
  * to automatically call the `edgee.page` method, ensuring page views are tracked during SPA navigations.
  *
- * @param {NextEdgeeProps} props - The component props.
+ * @param {EdgeeSdkProps} props - The component props.
  * @param {string} props.src - The source URL of the Edgee SDK script.
  * @param {boolean} [props.dataInline=true] - Determines if the script should be inlined.
  * @returns {JSX.Element} The script element to be injected into the application.
  */
-const NextEdgee = ({ src, dataInline }: NextEdgeeProps): JSX.Element => {
+const EdgeeSdk = ({ src, dataInline }: EdgeeSdkProps): JSX.Element => {
 
   // Default `dataInline` to true if not provided
   dataInline = dataInline ?? true;
@@ -106,9 +106,59 @@ const NextEdgee = ({ src, dataInline }: NextEdgeeProps): JSX.Element => {
   return script;
 };
 
-export { NextEdgee };
 
-NextEdgee.propTypes = {
-  src: PropTypes.string,
-  dataInline: PropTypes.bool
+// EdgeeContextObject is an interface representing the context object to display in the page.
+export interface EdgeeContextObject {
+  page?: Page;
+  identify?: Identify;
+  destinations?: object;
+}
+interface Page {
+  name?: string;
+  category?: string;
+  title?: string;
+  url?: string;
+  path?: string;
+  search?: string;
+  keywords?: string[];
+  properties?: object;
+}
+interface Identify {
+  userId?: string;
+  anonymousId?: string;
+  properties?: object;
+}
+
+/**
+ * Props for the EdgeeContextPayload component.
+ */
+export type EdgeeContextPayloadProps = {
+  data: EdgeeContextObject; // The context object to display in the page.
 };
+
+const EdgeeContextPayload = ({data}: EdgeeContextPayloadProps): JSX.Element => {
+  let contextPayload = '';
+  try {
+    // Check if the Edgee context object is valid JSON
+    contextPayload = JSON.stringify(data);
+  } catch (error) {
+    // Log the error if the context object is not valid JSON
+    return <></>;
+  }
+  return (
+    <script id="__EDGEE_CONTEXT__" type="application/json" dangerouslySetInnerHTML={{ __html: contextPayload }}></script>
+  );
+};
+
+export {EdgeeSdk, EdgeeContextPayload};
+
+EdgeeSdk.propTypes = {
+  src: PropTypes.string,
+  dataInline: PropTypes.bool,
+};
+
+EdgeeContextPayload.propTypes = {
+  context: PropTypes.object,
+};
+
+export default EdgeeSdk;
