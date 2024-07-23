@@ -1,24 +1,25 @@
-# nextjs-edgee Component
+# react-edgee Component
 
-`EdgeeSdk` is a React component that injects the Edgee SDK script into the application.
+`react-edgee` is a React component that injects the Edgee SDK script into a React application.
+
 It also sets up listeners to track page navigations via `history.pushState` and `history.replaceState`
 to automatically call the `edgee.page` method, ensuring page views are tracked during SPA navigations.
 
-[![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/nextjs-edgee)
-[![NPM Downloads](https://img.shields.io/npm/dm/nextjs-edgee?&style=flat-square)](https://www.npmjs.com/package/nextjs-edgee)
+[![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/react-edgee)
+[![NPM Downloads](https://img.shields.io/npm/dm/react-edgee?&style=flat-square)](https://www.npmjs.com/package/react-edgee)
 
 ## Install
 
 using npm:
 
 ```bash
-npm install nextjs-edgee
+npm install react-edgee
 ```
 
 using yarn:
 
 ```bash
-yarn add nextjs-edgee
+yarn add react-edgee
 ```
 
 ## Usage
@@ -26,7 +27,7 @@ yarn add nextjs-edgee
 import using:
 
 ```js
-import EdgeeSdk from 'nextjs-edgee';
+import EdgeeSdk from 'react-edgee';
 ```
 
 ### Usage with `app/layout.js` for `app` folder structure
@@ -34,7 +35,7 @@ import EdgeeSdk from 'nextjs-edgee';
 For rendering add `<EdgeeSdk />` to your `return()` inside the `<body></body>` of `RootLayout()`:
 
 ```js
-import EdgeeSdk from "nextjs-edgee";
+import EdgeeSdk from "react-edgee";
 
 export default function RootLayout({ children }) {
   return (
@@ -53,7 +54,7 @@ export default function RootLayout({ children }) {
 For rendering add `<EdgeeSdk />` to your `return()` in `MyApp()`:
 
 ```js
-import EdgeeSdk from 'nextjs-edgee';
+import EdgeeSdk from 'react-edgee';
 
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -92,13 +93,13 @@ export default App;
 import using:
 
 ```js
-import { EdgeeSdk, EdgeeContextPayload, EdgeeContextObject } from "nextjs-edgee";
+import { EdgeeSdk, EdgeeContextPayload, EdgeeContextObject } from "react-edgee";
 ```
 
 ### Usage with `app/layout.js` for `app` folder structure
 
 ```js
-import { EdgeeSdk, EdgeeContextPayload, EdgeeContextObject } from "nextjs-edgee";
+import { EdgeeSdk, EdgeeContextPayload, EdgeeContextObject } from "react-edgee";
 
 export default function RootLayout({ children }) {
   const edgeeContextPayload: EdgeeContextObject = {
@@ -143,4 +144,4 @@ export default function RootLayout({ children }) {
 }
 ```
 
-To know more about the Edgee SDK, visit the [Edgee SDK documentation](https://docs.edgee.cloud/getting-started/js-sdk).
+To know more about the Edgee SDK, visit the [Edgee SDK documentation](https://docs.edgee.cloud/getting-started/reactjs-sdk).

@@ -1,7 +1,7 @@
 {
-  "name": "nextjs-edgee",
-  "version": "1.0.2",
-  "description": "The Edgee SDK for React applications",
+  "name": "react-edgee",
+  "version": "1.0.0",
+  "description": "React component to use the Edgee SDK",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/edgee-cloud/nextjs-edgee.git"
+    "url": "git+https://github.com/edgee-cloud/react-edgee.git"
   },
   "keywords": [
     "Next",
@@ -27,9 +27,9 @@
   "author": "Sacha Morard",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/edgee-cloud/nextjs-edgee/issues"
+    "url": "https://github.com/edgee-cloud/react-edgee/issues"
   },
-  "homepage": "https://github.com/edgee-cloud/nextjs-edgee#readme",
+  "homepage": "https://github.com/edgee-cloud/react-edgee#readme",
   "files": [
     "dist/**/*.js*",
     "dist/**/*.mjs*",

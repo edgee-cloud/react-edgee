@@ -1,4 +1,4 @@
-name: Publish nextjs-edgee to npmjs
+name: Publish react-edgee to npmjs
 on:
   release:
     types:
@@ -28,7 +28,7 @@ jobs:
           node-version: '20.11.1'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Publish nextjs-edgee on npm
+      - name: Publish react-edgee on npm
         run: npm publish --access public
         continue-on-error: true
         env:
