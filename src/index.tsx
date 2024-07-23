@@ -3,7 +3,6 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-
 /**
  * Interface representing the Edgee analytics object.
  * Provides methods for tracking page views, user actions, and user identity.
@@ -46,7 +45,6 @@ export type EdgeeSdkProps = {
   dataInline?: boolean; // Determines if the script should be inlined. Defaults to true.
 };
 
-
 /**
  * `EdgeeSdk` is a React component that injects the Edgee SDK script into the application.
  * It also sets up listeners to track page navigations via `history.pushState` and `history.replaceState`
@@ -58,14 +56,11 @@ export type EdgeeSdkProps = {
  * @returns {JSX.Element} The script element to be injected into the application.
  */
 const EdgeeSdk = ({ src, dataInline }: EdgeeSdkProps): JSX.Element => {
-
   // Default `dataInline` to true if not provided
   dataInline = dataInline ?? true;
 
   // Create the script element with the provided `src` and `dataInline` values
-  const script = (
-    <script id={'__EDGEE_SDK__'} async data-inline={dataInline} src={src}></script>
-  );
+  const script = <script id={'__EDGEE_SDK__'} async data-inline={dataInline} src={src}></script>;
 
   // Use effect to setup and cleanup the history pushState and replaceState listeners
   React.useEffect((): ReturnType<React.EffectCallback> => {
@@ -106,7 +101,6 @@ const EdgeeSdk = ({ src, dataInline }: EdgeeSdkProps): JSX.Element => {
   return script;
 };
 
-
 // EdgeeContextObject is an interface representing the context object to display in the page.
 export interface EdgeeContextObject {
   page?: Page;
@@ -136,7 +130,7 @@ export type EdgeeContextPayloadProps = {
   data: EdgeeContextObject; // The context object to display in the page.
 };
 
-const EdgeeContextPayload = ({data}: EdgeeContextPayloadProps): JSX.Element => {
+const EdgeeContextPayload = ({ data }: EdgeeContextPayloadProps): JSX.Element => {
   let contextPayload = '';
   try {
     // Check if the Edgee context object is valid JSON
@@ -146,11 +140,15 @@ const EdgeeContextPayload = ({data}: EdgeeContextPayloadProps): JSX.Element => {
     return <></>;
   }
   return (
-    <script id="__EDGEE_CONTEXT__" type="application/json" dangerouslySetInnerHTML={{ __html: contextPayload }}></script>
+    <script
+      id="__EDGEE_CONTEXT__"
+      type="application/json"
+      dangerouslySetInnerHTML={{ __html: contextPayload }}
+    ></script>
   );
 };
 
-export {EdgeeSdk, EdgeeContextPayload};
+export { EdgeeSdk, EdgeeContextPayload };
 
 EdgeeSdk.propTypes = {
   src: PropTypes.string,
