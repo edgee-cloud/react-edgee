@@ -43,10 +43,11 @@
     "@typescript-eslint/parser": "^7.16.1",
     "@swc/core": "^1.6.13",
     "eslint": "^8.35.0",
-    "next": "^14.2.5",
+    "next": "^14.2.10",
     "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "rollup": "^4.22.4",
     "tsup": "^8.1.1",
     "typescript": "^5.5.3"
   },
