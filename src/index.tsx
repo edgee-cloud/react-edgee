@@ -5,29 +5,29 @@ import * as React from 'react';
 
 /**
  * Interface representing the Edgee analytics object.
- * Provides methods for tracking page views, user actions, and user identity.
+ * Provides methods for tracking page, track, and user events.
  */
 interface Edgee {
   /**
    * Tracks a page view event.
    * @param arg - The event name or an object containing event properties.
-   * @param destinations - Optional object specifying destinations for the event.
+   * @param components - Optional object specifying components for the event.
    */
-  page: (arg?: string | object, destinations?: object) => void;
+  page: (arg?: string | object, components?: object) => void;
 
   /**
    * Tracks a custom user action or event.
    * @param arg - The event name or an object containing event properties.
-   * @param destinations - Optional object specifying destinations for the event.
+   * @param components - Optional object specifying components for the event.
    */
-  track: (arg?: string | object, destinations?: object) => void;
+  track: (arg?: string | object, components?: object) => void;
 
   /**
    * Identifies a user and associates them with subsequent events.
    * @param arg - A unique identifier for the user or an object containing user properties.
-   * @param destinations - Optional object specifying destinations for the event.
+   * @param components - Optional object specifying components for the event.
    */
-  identify: (arg?: string | object, destinations?: object) => void;
+  user: (arg?: string | object, components?: object) => void;
 }
 
 // Extends the global Window interface to include the Edgee analytics object.
@@ -101,11 +101,23 @@ const EdgeeSdk = ({ src, dataInline }: EdgeeSdkProps): JSX.Element => {
   return script;
 };
 
-// EdgeeContextObject is an interface representing the context object to display in the page.
-export interface EdgeeContextObject {
+// EdgeeDataLayerObject is an interface representing the data layer to be set up
+export interface EdgeeDataLayerObject {
+  data_collection?: object;
+}
+export interface DataCollection {
+  events?: Event[];
+  context?: Context;
+  components?: object;
+}
+export interface Event {
+  type: string;
+  data: object;
+  components?: object;
+}
+export interface Context {
   page?: Page;
-  identify?: Identify;
-  destinations?: object;
+  user?: User;
 }
 interface Page {
   name?: string;
@@ -117,46 +129,46 @@ interface Page {
   keywords?: string[];
   properties?: object;
 }
-interface Identify {
-  userId?: string;
-  anonymousId?: string;
+interface User {
+  user_id?: string;
+  anonymous_id?: string;
   properties?: object;
 }
 
 /**
- * Props for the EdgeeContextPayload component.
+ * Props for the EdgeeDataLayerProps component.
  */
-export type EdgeeContextPayloadProps = {
-  data: EdgeeContextObject; // The context object to display in the page.
+export type EdgeeDataLayerProps = {
+  data: EdgeeDataLayerObject; // The Edgee data layer object to be set up.
 };
 
-const EdgeeContextPayload = ({ data }: EdgeeContextPayloadProps): JSX.Element => {
-  let contextPayload = '';
+const EdgeeDataLayer = ({ data }: EdgeeDataLayerProps): JSX.Element => {
+  let dataLayer = '';
   try {
-    // Check if the Edgee context object is valid JSON
-    contextPayload = JSON.stringify(data);
+    // Check if the Edgee data layer object is valid JSON
+    dataLayer = JSON.stringify(data);
   } catch (error) {
-    // Log the error if the context object is not valid JSON
+    // Log the error if the data layer object is not valid JSON
     return <></>;
   }
   return (
     <script
-      id="__EDGEE_CONTEXT__"
+      id="__EDGEE_DATA_LAYER__"
       type="application/json"
-      dangerouslySetInnerHTML={{ __html: contextPayload }}
+      dangerouslySetInnerHTML={{ __html: dataLayer }}
     ></script>
   );
 };
 
-export { EdgeeSdk, EdgeeContextPayload };
+export { EdgeeSdk, EdgeeDataLayer };
 
 EdgeeSdk.propTypes = {
   src: PropTypes.string,
   dataInline: PropTypes.bool,
 };
 
-EdgeeContextPayload.propTypes = {
-  context: PropTypes.object,
+EdgeeDataLayer.propTypes = {
+  data: PropTypes.object,
 };
 
 export default EdgeeSdk;
