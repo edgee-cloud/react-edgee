@@ -103,7 +103,7 @@ const EdgeeSdk = ({ src, dataInline }: EdgeeSdkProps): JSX.Element => {
 
 // EdgeeDataLayerObject is an interface representing the data layer to be set up
 export interface EdgeeDataLayerObject {
-  data_collection?: object;
+  data_collection?: DataCollection;
 }
 export interface DataCollection {
   events?: Event[];
