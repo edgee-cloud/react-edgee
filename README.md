@@ -27,121 +27,89 @@ yarn add react-edgee
 import using:
 
 ```js
-import EdgeeSdk from 'react-edgee';
+import { EdgeeSdk, EdgeeDataLayer, EdgeeDataLayerObject } from 'react-edgee';
 ```
 
-### Usage with `app/layout.js` for `app` folder structure
 
-For rendering add `<EdgeeSdk />` to your `return()` inside the `<body></body>` of `RootLayout()`:
+### Edgee Data Layer configuration
+
+The Data Layer provides you with fine-grained control over the data sent to various analytics.
+It is a structured data format used to define and send detailed information about user interactions
+and page characteristics.
+By including a Data Layer, you can instruct Edgee on what data to collect, how to process it, and where to send it.
 
 ```js
-import EdgeeSdk from "react-edgee";
+import { EdgeeDataLayerObject, EdgeeDataLayer } from "react-edgee";
 
+const edgeeDataLayer: EdgeeDataLayerObject = {
+  // your Data Layer configuration here
+};
+```
+
+To learn more about the Data Layer object,
+visit the [Edgee Data Layer docs](https://docs.edgee.cloud/services/data-collection/data-layer).
+
+
+
+### When using `app` folder structure
+
+Add the `EdgeeSdk` and `EdgeeDataLayer` components inside the `<body>` tag of your `RootLayout` component:
+
+```js
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
         {children}
-        <EdgeeSdk src={"https://yourdomain.com/_edgee/sdk.js"} />
+        <EdgeeDataLayer data={edgeeDataLayer} />
+        <EdgeeSdk src={"<YOUR_SDK_URL>"} />
       </body>
     </html>
   );
 }
 ```
 
-### Usage with `pages/_app.js` for `pages` folder structure
+### When using `pages` folder structure
 
-For rendering add `<EdgeeSdk />` to your `return()` in `MyApp()`:
+Add the `EdgeeSdk` and `EdgeeDataLayer` components in your `MyApp` component:
 
 ```js
-import EdgeeSdk from 'react-edgee';
-
 export default function MyApp({ Component, pageProps }) {
   return (
     <>
       <Component {...pageProps} />
-      <EdgeeSdk src="https://yourdomain.com/_edgee/sdk.js" />
+      <EdgeeDataLayer data={edgeeDataLayer} />
+      <EdgeeSdk src="<YOUR_SDK_URL>" />
     </>
   );
 }
 ```
 
-### Usage with React, Vite React or any other React Based Framework
+### When using Vite or other frameworks
 
-For rendering add `<EdgeeSdk />` to your `return()` inside the <Router><Router/> component in `App()` in your App.js:
+
+Add the `EdgeeSdk` and `EdgeeDataLayer` component inside the `<Router>` component in your `App`:
 
 ```js
-import EdgeeSdk from 'nextjsedgee';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 const App = () => {
   return (
     <div>
-    <Router>
-      <EdgeeSdk src="https://yourdomain.com/_edgee/sdk.js" />
-    <Routes>
-    {/* Your Routes Here */}
-    </Routes>
-    </Router>
+      <Router>
+        <EdgeeDataLayer data={edgeeDataLayer} />
+        <EdgeeSdk src="<YOUR_SDK_URL>" />
+        <Routes>
+          {/* Your Routes Here */}
+        </Routes>
+      </Router>
     </div>
-  )
+  );
 }
 
 export default App;
 ```
 
-## Edgee Context Payload Usage
 
-import using:
 
-```js
-import { EdgeeSdk, EdgeeContextPayload, EdgeeContextObject } from "react-edgee";
-```
-
-### Usage with `app/layout.js` for `app` folder structure
-
-```js
-import { EdgeeSdk, EdgeeContextPayload, EdgeeContextObject } from "react-edgee";
-
-export default function RootLayout({ children }) {
-  const edgeeContextPayload: EdgeeContextObject = {
-    page: {
-      name: "With Edgee",
-      category: "demo",
-      title: "With Edgee",
-      url: "https://mysite.com/my/path",
-      path: "/my/path",
-      search: "?ok",
-      keywords: ["demo", "edgee"],
-      properties: {
-        section: "edge computing",
-        order: 6
-      }
-    },
-    identify: {
-      userId: "12345",
-      anonymousId: "12345",
-      properties: {
-        email: "me@example.com",
-        name: "John Doe",
-        age: 32
-      }
-    },
-    destinations: {
-      all: true,
-      google_analytics: true,
-      amplitude: true,
-      facebook_capi: true
-    }
-  };
-
-  return (
-    <html lang="en">
-      <body>
-        {children}
-        <EdgeeSdk src={"https://yourdomain.com/_edgee/sdk.js"} />
-      </body>
-    </html>
-  );
-}
-```
-
-To know more about the Edgee SDK, visit the [Edgee SDK documentation](https://docs.edgee.cloud/getting-started/reactjs-sdk).
+To learn more about the Edgee SDK, visit the [Edgee SDK documentation](https://docs.edgee.cloud/getting-started/sdk).
