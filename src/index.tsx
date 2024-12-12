@@ -142,23 +142,28 @@ export type EdgeeDataLayerProps = {
   data: EdgeeDataLayerObject; // The Edgee data layer object to be set up.
 };
 
-const EdgeeDataLayer = ({ data }: EdgeeDataLayerProps): JSX.Element => {
-  let dataLayer = '';
-  try {
-    // Check if the Edgee data layer object is valid JSON
-    dataLayer = JSON.stringify(data);
-  } catch (error) {
-    // Log the error if the data layer object is not valid JSON
-    return <></>;
-  }
-  return (
-    <script
-      id="__EDGEE_DATA_LAYER__"
-      type="application/json"
-      dangerouslySetInnerHTML={{ __html: dataLayer }}
-    ></script>
-  );
-};
+const EdgeeDataLayer = ({ data }: { data: EdgeeDataLayerProps }) => {
+  React.useEffect(() => {
+    const scriptId = '__EDGEE_DATA_LAYER__';
+
+    let script = document.getElementById(scriptId) as HTMLScriptElement;
+    if (!script) {
+      script = document.createElement('script');
+      script.id = scriptId;
+      script.type = 'application/json';
+      document.head.appendChild(script);
+    }
+
+    try {
+      const newContent = JSON.stringify(data);
+      if (script.textContent !== newContent) script.textContent = newContent;
+    } catch (error) {
+      console.error('Failed to serialize EdgeeDataLayer data:', error);
+    }
+  }, [data]);
+
+  return null;
+}
 
 export { EdgeeSdk, EdgeeDataLayer };
 
