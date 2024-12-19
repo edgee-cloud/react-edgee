@@ -36,14 +36,14 @@
     "dist/**/*.d*"
   ],
   "devDependencies": {
+    "@swc/core": "^1.6.13",
     "@types/node": "^18.19.40",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^7.16.1",
     "@typescript-eslint/parser": "^7.16.1",
-    "@swc/core": "^1.6.13",
     "eslint": "^8.35.0",
-    "next": "^14.2.10",
+    "next": "^14.2.20",
     "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
