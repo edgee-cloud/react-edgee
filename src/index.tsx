@@ -152,11 +152,7 @@ const EdgeeDataLayer = ({ data }: EdgeeDataLayerProps): JSX.Element => {
     return <></>;
   }
   return (
-    <script
-      id="__EDGEE_DATA_LAYER__"
-      type="application/json"
-      dangerouslySetInnerHTML={{ __html: dataLayer }}
-    ></script>
+    <script id="__EDGEE_DATA_LAYER__" type="application/json" dangerouslySetInnerHTML={{ __html: dataLayer }}></script>
   );
 };
 
