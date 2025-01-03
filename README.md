@@ -47,7 +47,7 @@ const edgeeDataLayer: EdgeeDataLayerObject = {
 ```
 
 To learn more about the Data Layer object,
-visit the [Edgee Data Layer docs](https://docs.edgee.cloud/services/data-collection/data-layer).
+visit the [Edgee Data Layer docs](https://www.edgee.cloud/docs/services/data-collection/data-layer).
 
 
 
@@ -112,4 +112,4 @@ export default App;
 
 
 
-To learn more about the Edgee SDK, visit the [Edgee SDK documentation](https://docs.edgee.cloud/getting-started/sdk).
+To learn more about the Edgee SDK, visit the [Edgee SDK documentation](https://www.edgee.cloud/docs/getting-started/sdk).
