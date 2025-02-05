@@ -2,6 +2,7 @@
 
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
+import { useEdgeeDataCollection } from './lib/data-collection/data-collection.hook';
 
 /**
  * Interface representing the Edgee analytics object.
@@ -156,7 +157,7 @@ const EdgeeDataLayer = ({ data }: EdgeeDataLayerProps): JSX.Element => {
   );
 };
 
-export { EdgeeSdk, EdgeeDataLayer };
+export { EdgeeSdk, EdgeeDataLayer, useEdgeeDataCollection };
 
 EdgeeSdk.propTypes = {
   src: PropTypes.string,
