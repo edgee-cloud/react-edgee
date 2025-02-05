@@ -7,7 +7,7 @@ import * as React from 'react';
  * Interface representing the Edgee analytics object.
  * Provides methods for tracking page, track, and user events.
  */
-interface Edgee {
+export interface Edgee {
   /**
    * Tracks a page view event.
    * @param arg - The event name or an object containing event properties.
