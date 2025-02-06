@@ -1,16 +1,16 @@
 import { Edgee } from '../../index';
 import {
-  Page,
-  User,
-  Track,
-  Consent,
+  PageData,
+  UserData,
+  TrackData,
+  ConsentStatus,
   EdgeeMethod,
   EdgeeConsentMethod,
   QueuedEvent,
   QueuedConsentEvent,
 } from './data-collection.types';
 
-const eventQueue: (QueuedEvent<Page | User | Track | Consent> | QueuedConsentEvent)[] = [];
+const eventQueue: (QueuedEvent<PageData | UserData | TrackData> | QueuedConsentEvent)[] = [];
 
 /**
  * Flushes the event queue and sends all stored events to `window.edgee` if available.
@@ -37,7 +37,7 @@ export const flushQueue = () => {
  * @returns {EdgeeMethod<T>} A function that queues or sends the event.
  */
 const createMethod =
-  <T extends Page | User | Track>(method: Exclude<keyof Edgee, 'consent'>): EdgeeMethod<T> =>
+  <T extends PageData | UserData | TrackData>(method: Exclude<keyof Edgee, 'consent'>): EdgeeMethod<T> =>
   (arg: T, components?: Record<string, boolean>) => {
     if (typeof window !== 'undefined' && window.edgee) {
       flushQueue();
@@ -51,7 +51,7 @@ const createMethod =
  * Creates a consent method that queues events if `window.edgee` is not available yet.
  * @returns {EdgeeConsentMethod} A function that queues or sends the consent event.
  */
-const createConsentMethod = (): EdgeeConsentMethod => (arg: Consent) => {
+const createConsentMethod = (): EdgeeConsentMethod => (arg: ConsentStatus) => {
   if (typeof window !== 'undefined' && window.edgee) {
     flushQueue();
     window.edgee.consent(arg);
@@ -60,9 +60,9 @@ const createConsentMethod = (): EdgeeConsentMethod => (arg: Consent) => {
   }
 };
 
-export const track: EdgeeMethod<Track> = createMethod<Track>('track');
-export const user: EdgeeMethod<User> = createMethod<User>('user');
-export const page: EdgeeMethod<Page> = createMethod<Page>('page');
+export const track: EdgeeMethod<TrackData> = createMethod<TrackData>('track');
+export const user: EdgeeMethod<UserData> = createMethod<UserData>('user');
+export const page: EdgeeMethod<PageData> = createMethod<PageData>('page');
 export const consent: EdgeeConsentMethod = createConsentMethod();
 
 const EdgeeSDK = { track, user, page, consent };

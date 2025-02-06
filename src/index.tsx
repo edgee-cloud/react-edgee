@@ -3,7 +3,7 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { useEdgeeDataCollection } from './lib/data-collection/data-collection.hook';
-import { Consent } from './lib/data-collection/data-collection.types';
+import { ConsentStatus } from './lib/data-collection/data-collection.types';
 import { flushQueue } from './lib/data-collection/data-collection';
 
 /**
@@ -33,10 +33,10 @@ export interface Edgee {
   user: (arg?: string | object, components?: object) => void;
 
   /**
-   *  Consent management system that allows you to control data collection and anonymization based on user consent status.
-   * @param {Consent} status - Consent state. Could be pending, denied or granted.
+   *  ConsentStatus management system that allows you to control data collection and anonymization based on user consent status.
+   * @param {ConsentStatus} status - ConsentStatus state. Could be pending, denied or granted.
    */
-  consent: (status: Consent) => void;
+  consent: (status: ConsentStatus) => void;
 }
 
 // Extends the global Window interface to include the Edgee analytics object.
@@ -79,7 +79,7 @@ const EdgeeSdk = ({ src, dataInline }: EdgeeSdkProps): JSX.Element => {
       history.pushState = (...args) => {
         // Call the original pushState method
         const result = pushState.apply(history, args);
-        // Track the page view after a short delay to ensure the page has changed
+        // TrackData the page view after a short delay to ensure the page has changed
         setTimeout(() => {
           window.edgee.page();
         }, 200);
@@ -93,7 +93,7 @@ const EdgeeSdk = ({ src, dataInline }: EdgeeSdkProps): JSX.Element => {
       history.replaceState = (...args) => {
         // Call the original replaceState method
         const result = replaceState.apply(history, args);
-        // Track the page view after a short delay
+        // TrackData the page view after a short delay
         setTimeout(() => {
           window.edgee.page();
         }, 200);
@@ -180,4 +180,5 @@ EdgeeDataLayer.propTypes = {
   data: PropTypes.object,
 };
 
+export * from './lib/data-collection/data-collection.types';
 export default EdgeeSdk;
