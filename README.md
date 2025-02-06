@@ -3,7 +3,8 @@
 `react-edgee` is a React component that injects the Edgee SDK script into a React application.
 
 It also sets up listeners to track page navigations via `history.pushState` and `history.replaceState`
-to automatically call the `edgee.page` method, ensuring page views are tracked during SPA navigations.
+to automatically call the `edgee.page` method, ensuring page views are tracked during SPA navigations, and provides a **React Hook** (`useEdgeeDataCollection`) to simplify event tracking (`track`, `user`, `page`, `consent`).
+
 
 [![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/react-edgee)
 [![NPM Downloads](https://img.shields.io/npm/dm/react-edgee?&style=flat-square)](https://www.npmjs.com/package/react-edgee)
@@ -110,6 +111,25 @@ const App = () => {
 export default App;
 ```
 
+### 🔥 Using the React Hook (`useEdgeeDataCollection`)
 
+The `useEdgeeDataCollection` hook simplifies event tracking by providing direct access to the Edgee [SDK methods](https://www.edgee.cloud/docs/services/data-collection/overview).
+
+```js
+import { useEdgeeDataCollection } from 'react-edgee';
+
+const MyComponent = () => {
+  const { track, user, page, consent } = useEdgeeDataCollection();
+
+  return (
+    <>
+      <button onClick={() => track({ name: 'button_click' })}>Click Me</button>
+      <button onClick={() => user({ user_id: '12345', edgee_id: 'edgee-abc' })}>Identify User</button>
+      <button onClick={() => page({ name: 'HomePage', url: 'https://example.com' })}>Track Page</button>
+      <button onClick={() => consent('granted')}>Accept Consent</button>
+    </>
+  );
+};
+```
 
 To learn more about the Edgee SDK, visit the [Edgee SDK documentation](https://www.edgee.cloud/docs/getting-started/sdk).
