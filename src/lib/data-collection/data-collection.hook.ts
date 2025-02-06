@@ -5,7 +5,7 @@ import { Consent, Page, Track, User } from './data-collection.types';
 /**
  * Custom hook `useEdgeeDataCollection`
  *
- * Provides access to Edgee's tracking methods: `track`, `page`, and `user`.
+ * Provides access to Edgee's tracking methods: `track`, `page`, `user`, and `consent`.
  * - Returns memoized functions for tracking events and user identification.
  *
  * @returns {{
@@ -28,10 +28,10 @@ export const useEdgeeDataCollection = () => {
   /**
    * Tracks a custom event.
    *
-   * @param {Track} eventData - The event details to be sent to Edgee.
+   * @param {Track} trackData - The event details to be sent to Edgee.
    */
-  const trackEvent = useCallback((eventData: Track) => {
-    track(eventData);
+  const trackEvent = useCallback((trackData: Track) => {
+    track(trackData);
   }, []);
 
   /**
@@ -39,13 +39,18 @@ export const useEdgeeDataCollection = () => {
    *
    * @param {User} userData - The user data to be sent to Edgee.
    */
-  const setUser = useCallback((userData: User) => {
+  const userEvent = useCallback((userData: User) => {
     user(userData);
   }, []);
 
+  /**
+   * Set the consent for a user.
+   *
+   * @param {Consent} status - The status of the consent for the user.
+   */
   const setConsent = useCallback((status: Consent) => {
     consent(status);
   }, []);
 
-  return { track: trackEvent, page: pageEvent, user: setUser, consent: setConsent };
+  return { track: trackEvent, page: pageEvent, user: userEvent, consent: setConsent };
 };
