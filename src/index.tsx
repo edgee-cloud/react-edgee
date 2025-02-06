@@ -3,6 +3,7 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { useEdgeeDataCollection } from './lib/data-collection/data-collection.hook';
+import { Consent } from './lib/data-collection/data-collection.types';
 
 /**
  * Interface representing the Edgee analytics object.
@@ -29,6 +30,12 @@ export interface Edgee {
    * @param components - Optional object specifying components for the event.
    */
   user: (arg?: string | object, components?: object) => void;
+
+  /**
+   *  Consent management system that allows you to control data collection and anonymization based on user consent status.
+   * @param {Consent} status - Consent state. Could be pending, denied or granted.
+   */
+  consent: (status: Consent) => void;
 }
 
 // Extends the global Window interface to include the Edgee analytics object.

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import { track, page, user } from './data-collection';
-import { Page, Track, User } from './data-collection.types';
+import { track, page, user, consent } from './data-collection';
+import { Consent, Page, Track, User } from './data-collection.types';
 
 /**
  * Custom hook `useEdgeeDataCollection`
@@ -12,6 +12,7 @@ import { Page, Track, User } from './data-collection.types';
  *   track: (eventData: Track) => void;
  *   page: (pageData: Page) => void;
  *   user: (userData: User) => void;
+ *   consent: (consent: Consent) => void;
  * }} Object containing the tracking functions.
  */
 export const useEdgeeDataCollection = () => {
@@ -42,5 +43,9 @@ export const useEdgeeDataCollection = () => {
     user(userData);
   }, []);
 
-  return { track: trackEvent, page: pageEvent, user: setUser };
+  const setConsent = useCallback((status: Consent) => {
+    consent(status);
+  }, []);
+
+  return { track: trackEvent, page: pageEvent, user: setUser, consent: setConsent };
 };
