@@ -15,8 +15,8 @@ const eventQueue: (QueuedEvent<Page | User | Track | Consent> | QueuedConsentEve
 /**
  * Flushes the event queue and sends all stored events to `window.edgee` if available.
  */
-const flushQueue = () => {
-  if (typeof window !== 'undefined' && window.edgee) {
+export const flushQueue = () => {
+  if (typeof window !== 'undefined' && window.edgee && eventQueue.length > 0) {
     while (eventQueue.length > 0) {
       const event = eventQueue.shift();
       if (!event) return;

@@ -4,6 +4,7 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { useEdgeeDataCollection } from './lib/data-collection/data-collection.hook';
 import { Consent } from './lib/data-collection/data-collection.types';
+import { flushQueue } from './lib/data-collection/data-collection';
 
 /**
  * Interface representing the Edgee analytics object.
@@ -100,8 +101,12 @@ const EdgeeSdk = ({ src, dataInline }: EdgeeSdkProps): JSX.Element => {
       };
     })((window as Window).history);
 
+    if (window.edgee) flushQueue();
+    else window.addEventListener('edgee:loaded', flushQueue);
+
     // Cleanup function to restore the original pushState and replaceState methods
     return (): void => {
+      window.removeEventListener('edgee:loaded', flushQueue);
       // No cleanup actions are defined here, but this is where you would restore the original methods if needed
     };
   }, []);
