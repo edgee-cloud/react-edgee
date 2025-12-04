@@ -1,6 +1,6 @@
 {
   "name": "react-edgee",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "React component to use the Edgee SDK",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
